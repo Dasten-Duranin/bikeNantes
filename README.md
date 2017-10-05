@@ -114,5 +114,5 @@ Puis démmarez l'application Angular :
 ```
 ng serve --open
 ```
-
+ L'application est lancée sur <a>http://localhost:4200</a><br><br>
 Enjoy !
