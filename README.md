@@ -98,7 +98,7 @@ CREATE TABLE weather2(weather_id uuid primary key, condition varchar, date date,
 ```
 CREATE KEYSPACE volvelo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3};
 USE volvelo;
-CREATE TABLE vol(vol_id uuid primary key, location varchar, date date, owner varchar);
+CREATE TABLE vol(vol_id uuid primary key, location varchar, date date, owner varchar, new boolean);
 ```
 
 ###### Voilà ! L'application est prête à être lancée ! Il ne reste plus qu'à démarrer les APIs et l'application Angular.
