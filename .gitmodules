@@ -1,0 +1,15 @@
+[submodule "Appli"]
+	path = Appli
+	url = git@github.com:Dasten-Duranin/Appli.git
+[submodule "volVelo"]
+	path = volVelo
+	url = git@github.com:berthethomas/volVelo.git
+[submodule "alertNantes"]
+	path = alertNantes
+	url = git@github.com:Dasten-Duranin/alertNantes.git
+[submodule "pollutionNantes"]
+	path = pollutionNantes
+	url = git@github.com:berthethomas/pollutionNantes.git
+[submodule "weatherNantes"]
+	path = weatherNantes
+	url = git@github.com:Dasten-Duranin/weatherNantes.git
