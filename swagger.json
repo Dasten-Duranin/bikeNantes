@@ -1,0 +1,336 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "L'application AppBike permet à ses utilisateurs d'utiliser plusieurs API. Elle permet de consulter la météo sur Nantes, la pollution, les alertes météorologiques. De plus, elle permet de déclarer les vols de vélos ainsi que de consulter les vélos volés. Des notifications et des mails sont également envoyés pour les vols de vélos.",
+    "version": "1.0.0",
+    "title": "AppBike",
+    "contact": {
+      "email": "berthe.thomas01@gmail.com"
+    },
+    "license": {
+      "name": "leroux.tanguy.51@gmail.com souchu.laura@gmail.com"
+    }
+  },
+  "host": "localhost:4200",
+  "tags": [
+    {
+      "name": "Appli",
+      "description": "Rendu visuel de l'application",
+      "externalDocs": {
+        "description": "URL d'accès",
+        "url": "http://localhost:4200"
+      }
+    },
+    {
+      "name": "weatherNantes",
+      "description": "API permettant de récupérer la météo de Nantes en temps réel",
+      "externalDocs": {
+        "description": "URL d'accès",
+        "url": "http://localhost:8000"
+      }
+    },
+    {
+      "name": "pollutionNantes",
+      "description": "API permettant de récupérer les données sur la pollution de Nantes en temps réel",
+      "externalDocs": {
+        "description": "URL d'accès",
+        "url": "http://localhost:8001"
+      }
+    },
+    {
+      "name": "alertNantes",
+      "description": "API permettant de récupérer les alertes météorologiques de Nantes en temps réel",
+      "externalDocs": {
+        "description": "URL d'accès",
+        "url": "http://localhost:8002"
+      }
+    },
+    {
+      "name": "volVelo",
+      "description": "API permettant de déclarer si un vélo à été voler et d'obtenir la liste des vélos volés",
+      "externalDocs": {
+        "description": "URL d'accès",
+        "url": "http://localhost:8004"
+      }
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Appli"
+        ],
+        "summary": "Affiche les données des différentes APIs",
+        "description": "",
+        "operationId": "getAppli",
+        "produces": [
+          "application/html"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Opération réussie"
+          }
+        }
+      }
+    },
+    "/weather": {
+      "get": {
+        "tags": [
+          "weatherNantes"
+        ],
+        "summary": "Retourne les données météos de Nantes",
+        "description": "",
+        "operationId": "getWeather",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Weather"
+            }
+          }
+        }
+      }
+    },
+    "/pollution": {
+      "get": {
+        "tags": [
+          "pollutionNantes"
+        ],
+        "summary": "Retourne les données de pollution de Nantes",
+        "description": "",
+        "operationId": "getPollution",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Pollution"
+            }
+          }
+        }
+      }
+    },
+    "/alert": {
+      "get": {
+        "tags": [
+          "alertNantes"
+        ],
+        "summary": "Retourne les alertes météos de météofrance pour la ville de Nantes",
+        "description": "",
+        "operationId": "getAlert",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Alert"
+            }
+          }
+        }
+      }
+    },
+    "/vol": {
+      "get": {
+        "tags": [
+          "volVelo"
+        ],
+        "summary": "Retourne la liste des vélos volés",
+        "description": "",
+        "operationId": "getVol",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Vol"
+            }
+          }
+        }
+      }
+    },
+    "/vol/add": {
+      "post": {
+        "tags": [
+          "volVelo"
+        ],
+        "summary": "Ajouter un vélo volé",
+        "description": "",
+        "operationId": "addVol",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "formData",
+            "description": "Propriétaire du vélo volé",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "location",
+            "in": "formData",
+            "description": "Localisation géographique du vol",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/news": {
+      "get": {
+        "tags": [
+          "volVelo"
+        ],
+        "summary": "Retourne la liste des nouveaux vélos volés",
+        "description": "",
+        "operationId": "getNewVols",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Vol"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Weather": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "uuid"
+        },
+        "host": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "api_key": {
+          "type": "string"
+        },
+        "iconPath": {
+          "type": "string"
+        },
+        "iconExt": {
+          "type": "string"
+        },
+        "temp": {
+          "type": "number"
+        },
+        "tempMin": {
+          "type": "number"
+        },
+        "tempMax": {
+          "type": "number"
+        },
+        "condition": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        }
+      }
+    },
+    "Pollution": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "pm10": {
+          "type": "number"
+        },
+        "indice": {
+          "type": "number"
+        }
+      }
+    },
+    "Alert": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "departement": {
+            "type": "string"
+          },
+          "phenomenon": {
+            "type": "string"
+          },
+          "couleur": {
+            "type": "string"
+          },
+          "dateDebutEvtTU": {
+            "type": "string"
+          },
+          "dateFinEvtTU": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Vol": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "vol_id": {
+            "type": "integer",
+            "format": "uuid"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "location": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "new": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
