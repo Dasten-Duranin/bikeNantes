@@ -13,3 +13,6 @@
 [submodule "weatherNantes"]
 	path = weatherNantes
 	url = git@github.com:Dasten-Duranin/weatherNantes.git
+[submodule "notifications"]
+	path = notifications
+	url = git@github.com:Dasten-Duranin/notifications.git
